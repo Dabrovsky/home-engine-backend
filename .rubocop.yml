@@ -1,0 +1,25 @@
+require:
+  - rubocop-rails
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - .*/**/*
+    - db/*
+    - bin/*
+    - config/environments/*
+    - config/initializers/*
+    - config/puma.rb
+    - db/schema.rb
+    - tmp/**/*
+    - vendor/**/*
+
+Rails:
+  Enabled: true
+Rails/InverseOf:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+Style/Documentation:
+  Enabled: false
