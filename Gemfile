@@ -4,6 +4,7 @@ source "https://rubygems.org"
 
 ruby "3.2.2"
 
+gem "bcrypt", "~> 3.1.13"
 gem "bootsnap", require: false
 gem "pg", "~> 1.1"
 gem "puma", ">= 5.0"
