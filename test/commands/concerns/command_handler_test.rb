@@ -20,7 +20,7 @@ class CommandHandlerTest < ActiveSupport::TestCase
   end
 
   test ".invoke_command raises ArgumentError if command not provided" do
-    exception = assert_raises Api::Errors::ArgumentError do
+    exception = assert_raises ArgumentError do
       TestHandler.invoke_command(input:)
     end
 
