@@ -1,24 +1,40 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+##### Prerequisites
 
-Things you may want to cover:
+The main goal of this service is to function as a middleware, connecting Arduino sensors/devices with a mobile application. It enables the Arduino to send and receive data between the mobile app and the Arduino controller.
 
-* Ruby version
+The setups steps expect following tools installed on the system.
 
-* System dependencies
+- Github
+- Ruby [3.2.2](https://github.com/ruby/ruby/releases/tag/v3_2_2)
+- Rails [7.1.2](https://github.com/rails/rails/releases/tag/v7.1.2)
 
-* Configuration
+##### 1. Check out the repository
 
-* Database creation
+```bash
+git clone git@github.com:Dabrovsky/home-engine-backend.git
+```
 
-* Database initialization
+##### 2. Create and setup the database
 
-* How to run the test suite
+Run the following commands to create and setup the database.
 
-* Services (job queues, cache servers, search engines, etc.)
+```ruby
+rails db:create
+rails db:setup
+```
 
-* Deployment instructions
+##### 3. Start the Rails server
 
-* ...
+You can start the rails server using the command given below.
+
+```ruby
+rails s
+```
+
+And now you can visit the site with the URL http://localhost:3000
+
+#### License
+
+All code added by me (@Dabrovsky) is availabe under the MIT License.
