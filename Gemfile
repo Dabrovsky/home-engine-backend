@@ -7,6 +7,7 @@ ruby "3.2.2"
 gem "active_data"
 gem "bcrypt", "~> 3.1.13"
 gem "bootsnap", require: false
+gem "jsonapi-serializer"
 gem "pg", "~> 1.1"
 gem "puma", ">= 5.0"
 gem "rails", "~> 7.1.2"
