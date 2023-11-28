@@ -13,7 +13,7 @@ module CommandHandler
     private
 
     def call_command(command, input)
-      raise Api::Errors::ArgumentError, COMMAND_NOT_PROVIDED unless command
+      raise ArgumentError, COMMAND_NOT_PROVIDED unless command
 
       command.new(**input).call
     end
