@@ -17,11 +17,11 @@ module Users
       assert_instance_of User, output.value
     end
 
-    test "raises ActiveData::ValidationError when user_id is missing" do
+    test "raises Api::Errors::ValidationError when user_id is missing" do
       input = { user_id: nil }
-      exception = assert_raise(ActiveData::ValidationError) { Fetch.new(**input).call }
+      exception = assert_raise(Api::Errors::ValidationError) { Fetch.new(**input).call }
 
-      assert_equal "Validation failed: User can't be blank", exception.message
+      assert_equal "Provided parameters are invalid", exception.message
     end
 
     test "raises ActiveRecord::RecordNotFound when user instance not found" do

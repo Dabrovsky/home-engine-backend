@@ -1,16 +1,21 @@
 # frozen_string_literal: true
 
-module Users
+module Auth
   class Fetch < Command
     include ActiveData::Model
 
+    UNAUTHORIZED = "Provided credentials are incorrect"
     INVALID_PARAMETERS = "Provided parameters are invalid"
 
-    attribute :user_id, String
-    validates :user_id, presence: true
+    attribute :email, String
+    attribute :password, String
+
+    validates :email, presence: true
+    validates :password, presence: true
 
     def call
       validate_input!
+      authenticate!
       Response.success(user)
     end
 
@@ -22,10 +27,16 @@ module Users
       raise Api::Errors::ValidationError, INVALID_PARAMETERS
     end
 
+    def authenticate!
+      return if user.authenticate(password)
+
+      raise Api::Errors::UnathorizedError, UNAUTHORIZED
+    end
+
     def user
-      User.find(user_id)
+      User.find_by!(email:)
     rescue ActiveRecord::RecordNotFound
-      raise ActiveRecord::RecordNotFound, RECORD_NOT_FOUND
+      raise Api::Errors::UnathorizedError, UNAUTHORIZED
     end
   end
 end
