@@ -5,10 +5,16 @@ require "test_helper"
 module Api
   module V1
     class UsersControllerTest < ActionDispatch::IntegrationTest
+      attr_reader :headers, :user
+
+      setup do
+        @user = create(:user)
+        access_token = Api::TokenProvider.encode_token(user_id: user.id)
+        @headers = { "Authorization" => "Bearer #{access_token}" }.freeze
+      end
+
       class IndexTest < UsersControllerTest
         test "returns users collection" do
-          user = create(:user)
-
           expected_response = {
             data: [
               {
@@ -23,7 +29,7 @@ module Api
             ]
           }
 
-          get api_v1_users_path
+          get(api_v1_users_path, headers:)
 
           assert_response :success
           assert_equal expected_response, json_response
@@ -32,8 +38,6 @@ module Api
 
       class ShowTest < UsersControllerTest
         test "returns user object" do
-          user = create(:user)
-
           expected_response = {
             data: {
               id: user.id,
@@ -46,7 +50,7 @@ module Api
             }
           }
 
-          get api_v1_user_path(user)
+          get(api_v1_user_path(user), headers:)
 
           assert_response :success
           assert_equal expected_response, json_response

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# The Response class represents a generic response object
-# that can be used to represent success or failure outcomes
+# The Response class represents a response object that
+# can be used to represent success or failure outcomes
 class Response
   attr_reader :value
 

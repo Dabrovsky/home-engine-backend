@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
-module Users
-  class Fetch < Command
+module Auth
+  class Authenticate < Command
     include ActiveData::Model
 
+    UNAUTHORIZED = "Authentication failed"
     INVALID_PARAMETERS = "Provided parameters are invalid"
 
-    attribute :user_id, String
-    validates :user_id, presence: true
+    attribute :token, String
+    validates :token, presence: true
 
     def call
       validate_input!
@@ -22,10 +23,14 @@ module Users
       raise Api::Errors::ValidationError, INVALID_PARAMETERS
     end
 
+    def payload
+      @payload ||= Api::TokenProvider.decode_token(token)
+    end
+
     def user
-      User.find(user_id)
+      User.find(payload["user_id"])
     rescue ActiveRecord::RecordNotFound
-      raise ActiveRecord::RecordNotFound, RECORD_NOT_FOUND
+      raise Api::Errors::UnathorizedError, UNAUTHORIZED
     end
   end
 end
