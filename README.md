@@ -2,7 +2,7 @@
 
 ##### Prerequisites
 
-The main goal of this service is to function as a middleware, connecting Arduino sensors/devices with a mobile application. It enables the Arduino to send and receive data between the mobile app and the Arduino controller.
+The main goal of this service is to function as middleware, connecting external IoT devices with a mobile application, allowing the exchange of data between them
 
 The setups steps expect following tools installed on the system.
 
