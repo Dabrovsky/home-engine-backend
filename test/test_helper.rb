@@ -5,6 +5,7 @@ require_relative "../config/environment"
 require "rails/test_help"
 require "support/factory_bot"
 require "support/json_helper"
+require "support/tcp_server_helper"
 
 module ActiveSupport
   class TestCase

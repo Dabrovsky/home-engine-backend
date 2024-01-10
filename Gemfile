@@ -7,6 +7,7 @@ ruby "3.2.2"
 gem "active_data"
 gem "bcrypt", "~> 3.1.13"
 gem "bootsnap", require: false
+gem "concurrent-ruby", require: "concurrent"
 gem "jsonapi-serializer"
 gem "jwt"
 gem "pg", "~> 1.1"

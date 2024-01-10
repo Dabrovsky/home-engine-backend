@@ -4,18 +4,27 @@ require "test_helper"
 
 module Heatings
   class FetchTest < ActiveSupport::TestCase
+    include TcpServerHelper
+
     test "Fetch class inherits from Command class" do
       assert_equal Command, Fetch.superclass
     end
 
     test "returns a Response instance with heating data as a Response value" do
-      heating_instance = Struct.new(:id)
-      heating = heating_instance.new(id: "fake")
+      expected_keys = %w[
+        id
+        outdoor_temperature
+        heating_temperature
+        hotwater_temperature
+        heating_switch
+        hotwater_switch
+        flame
+      ]
       input = {}
       output = Fetch.new(**input).call
 
       assert_instance_of Response, output
-      assert_equal heating.as_json, output.value.as_json
+      assert_equal expected_keys.sort, output.value.as_json.keys.sort
     end
   end
 end

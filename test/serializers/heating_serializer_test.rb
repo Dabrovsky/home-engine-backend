@@ -4,13 +4,20 @@ require "test_helper"
 
 class HeatingSerializerTest < ActiveSupport::TestCase
   test "serializes heating representation with correct attributes" do
-    heating_instance = Struct.new(:id)
-    heating = heating_instance.new(id: "fake")
+    heating = build(:heating)
 
     expected_hash = {
       data: {
         id: heating.id,
-        type: :heating
+        type: :heating,
+        attributes: {
+          outdoor_temperature: "10°C",
+          heating_temperature: "10°C",
+          hotwater_temperature: "10°C",
+          heating_switch: "off",
+          hotwater_switch: "off",
+          flame: "off"
+        }
       }
     }
 

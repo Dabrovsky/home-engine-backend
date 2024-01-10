@@ -5,6 +5,8 @@ require "test_helper"
 module Api
   module V1
     class HeatingsControllerTest < ActionDispatch::IntegrationTest
+      include TcpServerHelper
+
       attr_reader :headers
 
       setup do
@@ -15,17 +17,19 @@ module Api
 
       class ShowTest < HeatingsControllerTest
         test "returns heating object" do
-          expected_response = {
-            data: {
-              id: "fake",
-              type: "heating"
-            }
-          }
+          expected_keys = %i[
+            outdoor_temperature
+            heating_temperature
+            hotwater_temperature
+            heating_switch
+            hotwater_switch
+            flame
+          ]
 
           get(api_v1_heating_path, headers:)
 
           assert_response :success
-          assert_equal expected_response, json_response
+          assert_equal expected_keys.sort, json_response[:data][:attributes].keys.sort
         end
       end
     end
