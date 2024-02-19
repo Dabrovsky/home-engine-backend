@@ -8,14 +8,19 @@ module Heatings
 
     private
 
-    def heating_instance
-      # Struct is being used as a temporary solution since it is not yet determined
-      # whether heating information will be stored or fetched directly every time
-      @heating_instance ||= Struct.new(:id)
+    def ebusd
+      @ebusd ||= Adapters::Ebusd.new
     end
 
     def heating_data
-      heating_instance.new(id: "fake")
+      Heating.new(
+        outdoor_temperature: ebusd.read("OutdoorstempSensor", "temp"),
+        heating_temperature: ebusd.read("FlowTemp", "temp"),
+        hotwater_temperature: ebusd.read("HwcTemp", "temp"),
+        heating_switch: ebusd.read("HeatingSwitch"),
+        hotwater_switch: ebusd.read("HwcSwitch"),
+        flame: ebusd.read("Flame")
+      )
     end
   end
 end

@@ -20,7 +20,7 @@ module Api
     private
 
     def secret_key
-      Rails.application.credentials.secret_key_base
+      Rails.application.secret_key_base
     end
   end
 end
